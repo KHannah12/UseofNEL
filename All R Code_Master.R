@@ -18,7 +18,7 @@ dat <- read_csv("https://raw.githubusercontent.com/KHannah12/UseofNEL/main/Ch1_A
 Bdat <- dat %>% mutate(spatial_scope=as.factor(spatial_scope),
                        sptl_two=as.factor(sptl_two),
                        sptl_three=as.factor(sptl_three), 
-                       new_cat=as.factor(new_cat))
+                       new_cat=as.factor(new_cat),)
 dat <- dat %>% mutate(spatial_scope=as.factor(spatial_scope),
                       sptl_two=as.factor(sptl_two),
                       sptl_three=as.factor(sptl_three), 
@@ -321,7 +321,7 @@ colnames(fig9) <- c("Level","Total","Too time intensive","Unbalanced Workloads o
 p1 <- fig9[,c(1,3:5)]
 p1long <- gather(p1,response,count,'Too time intensive':'Unable to find interested parties with relevant skillset',
                  factor_key=TRUE)
-p1long$response <- factor(p1long$response, levels = p1long$response)
+p1long$response <- factor(p1long$response, levels = sort(unique(p1long$response)))
 p1long$Level<- str_wrap(p1long$Level, width=10)
 
 p2 <- fig9[,c(1,2)]
@@ -349,3 +349,4 @@ plot2 <- ggplot(p1long,aes(x=Level,y=count,fill= response))+
   theme(text = element_text(size = 17))
 
 ggarrange(plot1,plot2, ncol = 1, nrow = 2, labels="AUTO", align = "hv",common.legend= T,legend = "right")
+
